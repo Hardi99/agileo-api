@@ -36,8 +36,8 @@ class TaskController extends AbstractController
         $task = new Task();
         $task->setTitle($data['title']);
         $task->setDescription($data['description'] ?? '');
-        $date = new \DateTimeImmutable($data['dueDate'], new \DateTimeZone('UTC'));
-        $task->setDueDate($date);
+        $date = new \DateTime($data['date']);
+        $task->setDate($date);
         $task->setStatus($data['status'] ?? 'à faire');
 
         $em->persist($task);
@@ -54,9 +54,9 @@ class TaskController extends AbstractController
 
         if (isset($data['title'])) $task->setTitle($data['title']);
         if (isset($data['description'])) $task->setDescription($data['description']);
-        if (isset($data['dueDate'])) {
-            $date = new \DateTimeImmutable($data['dueDate'], new \DateTimeZone('UTC'));
-            $task->setDueDate($date);
+        if (isset($data['date'])) {
+            $date = new \DateTime($data['date'], new \DateTimeZone('UTC'));
+            $task->setDate($date);
         }
         if (isset($data['status'])) $task->setStatus($data['status']);
 

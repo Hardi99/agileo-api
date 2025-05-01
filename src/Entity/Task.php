@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\TaskRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use \DateTimeImmutable;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
 class Task
@@ -21,11 +20,12 @@ class Task
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
-    private ?DateTimeImmutable $dueDate = null;
+    #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 50)]
     private ?string $status = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -55,14 +55,14 @@ class Task
         return $this;
     }
 
-    public function getDueDate(): ?DateTimeImmutable
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->dueDate;
+        return $this->date;
     }
 
-    public function setDueDate(DateTimeImmutable $dueDate): static
+    public function setDate(\DateTimeInterface $date): static
     {
-        $this->dueDate = $dueDate;
+        $this->date = $date;
 
         return $this;
     }
